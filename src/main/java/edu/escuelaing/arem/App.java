@@ -18,6 +18,7 @@ public class App {
      */
     public static void main(String[] args) {
         port(getPort());
+        staticFiles.location("/public");
         get("/inputdata", (req, res) -> inputDataPage(req, res));
         get("/results", (req, res) -> resultsPage(req, res));
     }
@@ -28,7 +29,7 @@ public class App {
                 + "<html>"
                 + "<body>"
                 + "<h2>HTML Forms</h2>"
-                + "<form action=\"/results\">"
+                + "<form action=\"/results\">"//En la URL el REST
                 + "  First name:<br>"
                 + "  <input type=\"text\" name=\"firstname\" value=\"Mickey\">"
                 + "  <br>"
@@ -45,7 +46,7 @@ public class App {
 
     private static String resultsPage(Request req, Response res) {
         return req.queryParams("firstname") + " " +
-                req.queryParams("lastname");
+                req.queryParams("lastname"); //Lo que muestra la página
     }
 
     /**
