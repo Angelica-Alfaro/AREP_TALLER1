@@ -1,4 +1,7 @@
 var app = (function () {
+     //URL de trabajo
+     //var myUrl = "http://localhost:4567/timeSeries.html" 
+     var myUrl = "https://spark-web-arep.herokuapp.com/timeSeries.html"
 
     var saveData = function () {
         //Obtener valores del HTML y guardarlos en el almacenamiento local de la ventana.
@@ -7,7 +10,7 @@ var app = (function () {
         if (timeSeries == null) {timeSeries = "TimeSeriesIntraday"};
         window.localStorage.setItem("mystock", stockId);
         window.localStorage.setItem("mytimeSeries", timeSeries);
-        window.location.href="http://localhost:4567/timeSeries.html";
+        window.location.href = myUrl;
     };
     var getData = function (){
         //Obtener los valores almacenados.
@@ -27,7 +30,6 @@ var app = (function () {
             body.remove();
         }
         tabla.append("<tbody>");
-
         //Llenar tabla del HTLM con la información de las acciones.
         var timeSeriesData = data[window.localStorage.getItem("mytimeSeries")]
         var cad = ""
