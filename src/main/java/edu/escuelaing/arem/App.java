@@ -1,13 +1,14 @@
 package edu.escuelaing.arem;
 
+import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import static spark.Spark.*;
 
+import java.io.IOException;
+
 /**
  * Minimal web app example for Heroku using SparkWeb
- *
- * @author daniel
  */
 public class App {
 	
@@ -21,15 +22,16 @@ public class App {
         staticFiles.location("/public");
         get("/inputdata", (req, res) -> inputDataPage(req, res));
         get("/results", (req, res) -> resultsPage(req, res));
+        get("/getStockSeries",(req, res) -> getStockSeries(req, res)); //Opcional application/json
     }
 
-    private static String inputDataPage(Request req, Response res) {
+	private static String inputDataPage(Request req, Response res) {
         String pageContent
                 = "<!DOCTYPE html>"
                 + "<html>"
                 + "<body>"
                 + "<h2>HTML Forms</h2>"
-                + "<form action=\"/results\">"//En la URL el REST
+                + "<form action=\"/results\">"
                 + "  First name:<br>"
                 + "  <input type=\"text\" name=\"firstname\" value=\"Mickey\">"
                 + "  <br>"
@@ -48,6 +50,27 @@ public class App {
         return req.queryParams("firstname") + " " +
                 req.queryParams("lastname"); //Lo que muestra la página
     }
+    
+    private static String getStockSeries(Request req, Response res) {
+    	res.type("application/json"); //Devuelve los datos en formato JSON
+    	String stock = req.queryParams("stock"); //Parámetro para poner en las consultas directamente desde acá
+    	StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("TimeSeriesIntraday"); //Para poner la serie de tiempo directamente desde acá
+    	String response = "Failed";
+    	
+    	if (stock != "" && stock != null && !stock.isEmpty()) {
+    		stockTimeSeries.setStock(stock);
+    	}
+    	else {
+    		stockTimeSeries.setStock("GOOG");
+    	}
+    	
+    	try {
+			response = stockTimeSeries.getStockData();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	return response;
+  	}
 
     /**
      * This method reads the default port as specified by the PORT variable in
