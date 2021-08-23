@@ -7,7 +7,7 @@ var app = (function () {
         //Obtener valores del HTML y guardarlos en el almacenamiento local de la ventana.
         stockId = $("#stockId").val();
         timeSeries = $("#timeSeries").val();
-        if (timeSeries == null) {timeSeries = "TimeSeriesIntraday"};
+        if (timeSeries == null) {timeSeries = "Time Series (5min)"};
         window.localStorage.setItem("mystock", stockId);
         window.localStorage.setItem("mytimeSeries", timeSeries);
         window.location.href = myUrl;
