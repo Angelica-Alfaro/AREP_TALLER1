@@ -25,8 +25,11 @@ public class App {
     
     private static String getStockSeries(Request req, Response res) {
     	res.type("application/json"); //Devuelve los datos en formato JSON
-    	String stock = req.queryParams("stock"); //Parámetro para poner en las consultas directamente desde acá
-    	StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("TimeSeriesIntraday"); //Para poner la serie de tiempo directamente desde acá
+    	//String stock = req.queryParams("stock"); //Parámetro para poner en las consultas directamente desde acá
+    	//StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("TimeSeriesIntraday"); //Para poner la serie de tiempo directamente desde acá
+    	QueryParamsMap map = req.queryMap();//Parámetro recibido desde el front para poner en las consultas
+    	String stock =  map.get("id").value();
+    	StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries(map.get("ts").value());
     	String response = "Failed";
     	
     	if (stock != "" && stock != null && !stock.isEmpty()) {
