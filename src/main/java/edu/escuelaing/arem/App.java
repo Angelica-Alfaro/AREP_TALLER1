@@ -20,35 +20,7 @@ public class App {
     public static void main(String[] args) {
         port(getPort());
         staticFiles.location("/public");
-        get("/inputdata", (req, res) -> inputDataPage(req, res));
-        get("/results", (req, res) -> resultsPage(req, res));
-        get("/getStockSeries",(req, res) -> getStockSeries(req, res)); //Opcional application/json
-    }
-
-	private static String inputDataPage(Request req, Response res) {
-        String pageContent
-                = "<!DOCTYPE html>"
-                + "<html>"
-                + "<body>"
-                + "<h2>HTML Forms</h2>"
-                + "<form action=\"/results\">"
-                + "  First name:<br>"
-                + "  <input type=\"text\" name=\"firstname\" value=\"Mickey\">"
-                + "  <br>"
-                + "  Last name:<br>"
-                + "  <input type=\"text\" name=\"lastname\" value=\"Mouse\">"
-                + "  <br><br>"
-                + "  <input type=\"submit\" value=\"Submit\">"
-                + "</form>"
-                + "<p>If you click the \"Submit\" button, the form-data will be sent to a page called \"/results\".</p>"
-                + "</body>"
-                + "</html>";
-        return pageContent;
-    }
-
-    private static String resultsPage(Request req, Response res) {
-        return req.queryParams("firstname") + " " +
-                req.queryParams("lastname"); //Lo que muestra la página
+        get("/getStockSeries",(req, res) -> getStockSeries(req, res));
     }
     
     private static String getStockSeries(Request req, Response res) {
