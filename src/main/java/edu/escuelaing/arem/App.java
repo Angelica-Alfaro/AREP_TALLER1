@@ -11,6 +11,7 @@ import java.io.IOException;
  * Minimal web app example for Heroku using SparkWeb
  */
 public class App {
+	static CacheImpl myCache = new CacheImpl();
 	
 	/**
      * This main method uses SparkWeb static methods and lambda functions to
@@ -39,11 +40,18 @@ public class App {
     		stockTimeSeries.setStock("GOOG");
     	}
     	
-    	try {
-			response = stockTimeSeries.getStockData();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    	String dataStr = myCache.getData(stock, map.get("ts").value());
+    	if(dataStr.equals("") || dataStr.equals(null)) {
+	    	try {
+				response = stockTimeSeries.getStockData();
+				myCache.saveData(response, stock, map.get("ts").value());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    	else {
+    		response = dataStr;
+    	}
     	return response;
   	}
 
