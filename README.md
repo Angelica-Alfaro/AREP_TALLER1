@@ -51,6 +51,6 @@ La aplicación está construida con el patrón de diseño Factory Method lo que 
 
 Para ampliar esta aplicación, se podría crear una clase que extienda de StockHttpConnection, ir a la clase FactoryHttpConnection, proporcionarle la información necesaria para que está decida qué objeto debe crear e implementar los métodos correspondientes.
 
-#### 🚀 Despliegue en Heroku (Cliente Java): [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://spark-web-backend.herokuapp.com/getStockSeries)
+#### 🚀 Despliegue en Heroku (Cliente Java): [![Deploy](https://www.herokucdn.com/deploy/button.svg)](http://spark-web-backend.herokuapp.com/getStockSeries?stock=MSFT&time=WeeklyTimeSeries)
 
 #### 🚀 Despliegue en Heroku (Cliente web JS): [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://spark-web-arep.herokuapp.com/)

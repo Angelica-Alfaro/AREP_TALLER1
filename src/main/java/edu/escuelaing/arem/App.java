@@ -35,7 +35,7 @@ public class App {
     private static String getStockSeries(Request req, Response res) {
     	res.type("application/json"); // Returns the data in JSON format
     	//String stock = req.queryParams("stock"); // Parameter to put in the queries directly from here
-    	//StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("TimeSeriesIntraday"); // To put the time series directly from here
+    	//StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("Time Series (5min)"); // To put the time series directly from here
     	QueryParamsMap map = req.queryMap();// Parameter received from the front to put in the queries
     	String stock =  map.get("id").value();
     	StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries(map.get("ts").value());
