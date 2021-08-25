@@ -1,7 +1,17 @@
 package edu.escuelaing.arem;
 
+/**
+ * Factory method that allows you to create objects according to the time series.
+ * 
+ * @author Angélica
+ */
 public class FactoryHttpConnection {
 	
+	/**
+	 * Gets the time series based on its type.
+	 * @param type - Daily, weekly, intraday(5min), monthly.
+	 * @return time series object. 
+	 */
 	public static StockHttpConnection getStockTimeSeries(String type) {
 		
 		StockHttpConnection timeSeries;

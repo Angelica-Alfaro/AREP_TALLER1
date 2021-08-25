@@ -9,14 +9,15 @@ import java.io.IOException;
 
 /**
  * Minimal web app example for Heroku using SparkWeb
+ * 
+ * @author Daniel, Angélica
  */
 public class App {
 	static CacheImpl myCache = new CacheImpl();
 	
 	/**
      * This main method uses SparkWeb static methods and lambda functions to
-     * create a simple Hello World web app. It maps the lambda function to the
-     * /hello relative URL.
+     * create a web app. It maps the lambda function to the getStockSeries relative URL.
      */
     public static void main(String[] args) {
         port(getPort());
@@ -24,11 +25,18 @@ public class App {
         get("/getStockSeries",(req, res) -> getStockSeries(req, res));
     }
     
+    /**
+     * This method receives the necessary parameters to make the queries 
+     * and obtains the data from the cache or by calling the HTTP connection class.
+     * @param req - Request to go to another page or file.
+     * @param res - Response to go to another page or file.
+     * @return the data in JSON format
+     */
     private static String getStockSeries(Request req, Response res) {
-    	res.type("application/json"); //Devuelve los datos en formato JSON
-    	//String stock = req.queryParams("stock"); //Parámetro para poner en las consultas directamente desde acá
-    	//StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("TimeSeriesIntraday"); //Para poner la serie de tiempo directamente desde acá
-    	QueryParamsMap map = req.queryMap();//Parámetro recibido desde el front para poner en las consultas
+    	res.type("application/json"); // Returns the data in JSON format
+    	//String stock = req.queryParams("stock"); // Parameter to put in the queries directly from here
+    	//StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries("TimeSeriesIntraday"); // To put the time series directly from here
+    	QueryParamsMap map = req.queryMap();// Parameter received from the front to put in the queries
     	String stock =  map.get("id").value();
     	StockHttpConnection stockTimeSeries = FactoryHttpConnection.getStockTimeSeries(map.get("ts").value());
     	String response = "Failed";
@@ -61,6 +69,7 @@ public class App {
      *
      * Heroku provides the port automatically so you need this to run the
      * project on Heroku.
+     * @return the connection port
      */
     static int getPort() {
         if (System.getenv("PORT") != null) {
